@@ -6,7 +6,7 @@ on:
 
 jobs:
   eslint:
-    name: eslint runner
+    name: Code lint
     runs-on: ubuntu-latest
 
     permissions:
