@@ -1,14 +1,13 @@
 import { DataSource } from 'typeorm';
-//FIXME: add env var
 const AppDataSource = new DataSource({
-	database: 'url_shortener_db',
+	database: process.env.DB_NAME,
 	entities: [`${__dirname}/src/entities/*.ts`],
-	host: 'localhost',
+	host: process.env.DB_HOST,
 	migrations: ['./src/migrations/*.ts'],
-	password: 'postgres',
-	port: 5432,
+	password: process.env.DB_PASSWORD,
+	port: process.env.DB_PORT as unknown as number,
 	type: 'postgres',
-	username: 'postgres',
+	username: process.env.DB_USERNAME,
 });
 
 AppDataSource.initialize()
