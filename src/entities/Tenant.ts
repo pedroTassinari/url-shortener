@@ -10,7 +10,7 @@ export class Tenant {
 	createdAt: Date;
 
 	@DeleteDateColumn({ name: 'deleted_at' })
-	deletedAt: Date;
+	deletedAt?: Date;
 
 	@PrimaryColumn()
 	id: string;
@@ -19,7 +19,7 @@ export class Tenant {
 	name: string;
 
 	@UpdateDateColumn({ name: 'updated_at' })
-	updatedAt: Date;
+	updatedAt?: Date;
 
 	constructor(name: string, apiKey: string) {
 		this.name = name;
