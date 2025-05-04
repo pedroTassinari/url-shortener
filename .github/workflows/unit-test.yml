@@ -1,12 +1,10 @@
 name: Unit test
 on:
   pull_request:
-    branches:
-      - master
+    branches: [master]
 
 jobs:
-  coverage:
-    name: Unit test with coverage
+  unit-test-with-coverage:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

@@ -1,12 +1,10 @@
 name: Review Dog
 on:
   pull_request:
-    branches:
-      - master
+    branches: [master]
 
 jobs:
-  eslint:
-    name: Code lint
+  code-lint:
     runs-on: ubuntu-latest
 
     permissions:
