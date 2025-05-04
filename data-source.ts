@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm';
 //FIXME: add env var
 const AppDataSource = new DataSource({
 	database: 'url_shortener_db',
-	entities: [`${__dirname}/src/entity/*.ts`],
+	entities: [`${__dirname}/src/entities/*.ts`],
 	host: 'localhost',
 	migrations: ['./src/migrations/*.ts'],
 	password: 'postgres',
