@@ -3,13 +3,12 @@ on:
   pull_request:
     branches: [master]
 
-permissions:
-  contents: write
-  pull-requests: write
-  checks: write
-
 jobs:
   unit-test-with-coverage:
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
