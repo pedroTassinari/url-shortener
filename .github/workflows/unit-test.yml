@@ -3,6 +3,11 @@ on:
   pull_request:
     branches: [master]
 
+permissions:
+  contents: write
+  pull-requests: write
+  checks: write
+
 jobs:
   unit-test-with-coverage:
     runs-on: ubuntu-latest
