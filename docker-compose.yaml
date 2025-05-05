@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres
+    restart: always
+    volumes:
+      - './pgdata:/var/lib/postgresql/data/pgdata'
+    ports:
+      - '5432:5432'
+    container_name: url-shortener-postgres-db
+    tty: true
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=url_shortener_db
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    networks:
+      - url-shortener-network
+#  url-shortener-api:
+#    build:
+#     context: .
+#    container_name: url-shortener-app
+#    volumes:
+#      - ./:/app
+#      - /app/node_modules
+#    ports:
+#     - "3000:3000"
+#    command: npm start
+#    tty: true
+#    depends_on:
+#      - postgres
+#    networks:
+#     - url-shortener-network
+
+networks:
+  url-shortener-network:
+    external: false
+    name: url-shortener-network

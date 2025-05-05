@@ -3,13 +3,12 @@ on:
   pull_request:
     branches: [master]
 
-permissions:
-  contents: write
-  pull-requests: write
-  checks: write
-
 jobs:
   unit-test-with-coverage:
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,4 +17,4 @@ jobs:
       - name: Run unit tests with coverage
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
-          github-token: ${{ secrets.GH_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}

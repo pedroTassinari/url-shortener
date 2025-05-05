@@ -10,7 +10,10 @@
 		"lint": "eslint --fix --ext ts",
 		"pretty": "pretty-quick --staged --ignore-path .eslintignore",
 		"leaks:protect": "gitleaks protect --staged --verbose || docker run --rm -v $(pwd):/repo zricethezav/gitleaks:latest protect --source='/repo' --staged --verbose",
-		"leaks:protect:report": "gitleaks protect --staged -r $(pwd)/gitleaks-report.json || docker run --rm -v $(pwd):/repo zricethezav/gitleaks:latest protect --source='/repo' -v --staged -r='/repo/gitleaks-report.json'"
+		"leaks:protect:report": "gitleaks protect --staged -r $(pwd)/gitleaks-report.json || docker run --rm -v $(pwd):/repo zricethezav/gitleaks:latest protect --source='/repo' -v --staged -r='/repo/gitleaks-report.json'",
+		"test": "jest",
+		"start": "ts-node src/server.ts",
+		"typeorm": "typeorm-ts-node-commonjs"
 	},
 	"repository": {
 		"type": "git",
@@ -27,7 +30,11 @@
 		"@commitlint/cli": "^19.8.0",
 		"@commitlint/config-conventional": "^19.8.0",
 		"@eslint/js": "^9.25.0",
+		"@types/bcrypt": "^5.0.2",
+		"@types/cors": "^2.8.17",
+		"@types/express": "^5.0.1",
 		"@types/jest": "^29.5.14",
+		"@types/node": "^22.15.3",
 		"eslint": "^9.25.0",
 		"eslint-config-prettier": "^10.1.2",
 		"eslint-plugin-perfectionist": "^4.12.3",
@@ -44,5 +51,16 @@
 	"engines": {
 		"node": "22.14.0",
 		"npm": "10.9.2"
+	},
+	"dependencies": {
+		"bcrypt": "^5.1.1",
+		"cors": "^2.8.5",
+		"dotenv": "^16.5.0",
+		"express": "^5.1.0",
+		"pg": "^8.15.6",
+		"reflect-metadata": "^0.2.2",
+		"typeorm": "^0.3.22",
+		"uuid": "^11.1.0",
+		"zod": "^3.24.4"
 	}
 }
