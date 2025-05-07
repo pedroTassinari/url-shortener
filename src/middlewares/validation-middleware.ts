@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { z, ZodTypeAny } from 'zod';
 
-const validate = (schema: ZodTypeAny, source: 'body' | 'params' | 'query'): RequestHandler => {
+const validate = (schema: ZodTypeAny, source: 'body' | 'headers' | 'params' | 'query'): RequestHandler => {
 	return async (req, res, next) => {
 		try {
 			await schema.parseAsync(req[source]);
@@ -31,4 +31,8 @@ const validateRequestQuery = (schema: ZodTypeAny): RequestHandler => {
 	return validate(schema, 'query');
 };
 
-export { validateRequestBody, validateRequestParams, validateRequestQuery };
+const validateRequestHeaders = (schema: ZodTypeAny): RequestHandler => {
+	return validate(schema, 'headers');
+};
+
+export { validateRequestBody, validateRequestHeaders, validateRequestParams, validateRequestQuery };
