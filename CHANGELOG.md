@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/pedroTassinari/url-shortener/compare/v1.4.0...v1.4.1) (2025-05-07)
+
+
+### Bug Fixes
+
+* avoid send user password on api response ([#16](https://github.com/pedroTassinari/url-shortener/issues/16)) ([37cda90](https://github.com/pedroTassinari/url-shortener/commit/37cda90060bc671d0cf992c7bacfed50558e779f))
+
 ## [1.4.0](https://github.com/pedroTassinari/url-shortener/compare/v1.3.0...v1.4.0) (2025-05-07)
 
 
