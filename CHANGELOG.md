@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/pedroTassinari/url-shortener/compare/v1.1.0...v1.2.0) (2025-05-07)
+
+
+### Features
+
+* authentication ([#10](https://github.com/pedroTassinari/url-shortener/issues/10)) ([16ae28f](https://github.com/pedroTassinari/url-shortener/commit/16ae28fa587e75e8bdaca33622b8d6123db3f6a6))
+
 ## [1.1.0](https://github.com/pedroTassinari/url-shortener/compare/v1.0.0...v1.1.0) (2025-05-07)
 
 
