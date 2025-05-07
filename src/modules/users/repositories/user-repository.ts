@@ -12,6 +12,7 @@ export interface CreateUserDTO {
 
 export interface IUserRepository {
 	create(user: CreateUserDTO): Promise<User>;
+	findByEmail(email: string): Promise<null | User>;
 }
 
 export class UserRepository implements IUserRepository {
@@ -33,5 +34,18 @@ export class UserRepository implements IUserRepository {
 		const createdUser = this.repository.create(user);
 
 		return await this.repository.save(createdUser);
+	}
+
+	/**
+	 * Find a user by email
+	 * @param email - The email of the user to be found
+	 * @returns The found user or null if not found
+	 */
+	async findByEmail(email: string): Promise<null | User> {
+		const user = await this.repository.findOne({
+			where: { email },
+		});
+
+		return user;
 	}
 }
