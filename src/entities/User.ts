@@ -42,7 +42,11 @@ export class User {
 	@UpdateDateColumn({ name: 'updated_at' })
 	updatedAt?: Date;
 
-	constructor() {
+	constructor(name: string, email: string, password: string, tenantId: string) {
 		this.id = uuid();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.tenantId = tenantId;
 	}
 }
