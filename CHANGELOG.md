@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/pedroTassinari/url-shortener/compare/v1.2.0...v1.3.0) (2025-05-07)
+
+
+### Features
+
+* shorten url ([#12](https://github.com/pedroTassinari/url-shortener/issues/12)) ([be7606c](https://github.com/pedroTassinari/url-shortener/commit/be7606cddd37bb87138fa7f5704c90347cd7b502))
+
 ## [1.2.0](https://github.com/pedroTassinari/url-shortener/compare/v1.1.0...v1.2.0) (2025-05-07)
 
 
