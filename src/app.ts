@@ -18,7 +18,6 @@ app.use((err: Error, _request: Request, response: Response, next: NextFunction) 
 	if (err instanceof AppError) {
 		return void response.status(err.statusCode).json({
 			message: err.message,
-			status: 'error',
 		});
 	}
 
@@ -26,7 +25,6 @@ app.use((err: Error, _request: Request, response: Response, next: NextFunction) 
 
 	return void response.status(500).json({
 		message: 'internal server error',
-		status: 'error',
 	});
 });
 

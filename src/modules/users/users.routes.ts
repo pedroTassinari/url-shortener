@@ -6,7 +6,7 @@ import { TenantRepository } from '../tenants/repositories/tenant-repository';
 import { CreateUserController } from './create-user-controller';
 import { CreateUserUseCase } from './create-user-usecase';
 import { UserRepository } from './repositories/user-repository';
-import { createUserSchema } from './schemas/create-user-schema';
+import { createUserHeadersSchema, createUserSchema } from './schemas/create-user-schema';
 
 const usersRoutes = Router();
 
@@ -18,7 +18,7 @@ const createUserController = new CreateUserController(createTenantUseCase);
 
 usersRoutes.post(
 	'/',
-	validateRequestHeaders(createUserSchema),
+	validateRequestHeaders(createUserHeadersSchema),
 	validateRequestBody(createUserSchema),
 	(request: Request, response: Response) => createUserController.handle(request, response)
 );
