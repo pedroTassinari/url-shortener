@@ -7,7 +7,7 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
 	{
-		ignores: ['**/*.js', './eslint.config.ts', './commitlint.config.ts', './pgdata'],
+		ignores: ['**/*.js', './eslint.config.ts', './commitlint.config.ts', './pgdata', 'babel.config.js'],
 	},
 	eslint.configs.recommended,
 	tseslint.configs.strictTypeChecked,

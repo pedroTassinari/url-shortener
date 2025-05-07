@@ -13,6 +13,7 @@ export interface CreateUserDTO {
 export interface IUserRepository {
 	create(user: CreateUserDTO): Promise<User>;
 	findByEmail(email: string): Promise<null | User>;
+	findById(id: string): Promise<null | User>;
 }
 
 export class UserRepository implements IUserRepository {
@@ -44,6 +45,19 @@ export class UserRepository implements IUserRepository {
 	async findByEmail(email: string): Promise<null | User> {
 		const user = await this.repository.findOne({
 			where: { email },
+		});
+
+		return user;
+	}
+
+	/**
+	 * Find a user by id
+	 * @param id - The id of the user to be found
+	 * @returns The found user or null if not found
+	 */
+	async findById(id: string): Promise<null | User> {
+		const user = await this.repository.findOne({
+			where: { id },
 		});
 
 		return user;

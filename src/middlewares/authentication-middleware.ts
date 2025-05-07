@@ -1,42 +1,53 @@
-import { NextFunction, Request } from 'express';
+import { RequestHandler } from 'express';
 import { verify } from 'jsonwebtoken';
 
 import { AppError } from '../AppError';
 
-export default function ensureAuthenticated(request: Request, response: Response, next: NextFunction): void {
-	const authHeader = request.headers.authorization;
+export const ensureAuthenticated = (): RequestHandler => {
+	return (request, response, next): void => {
+		const authHeader = request.headers.authorization;
 
-	if (!authHeader) {
-		throw new AppError('Invalid JWT token!', 401);
-	}
+		if (request.path === '/shorten' && request.method === 'POST' && !authHeader) {
+			next();
+			return;
+		}
 
-	const [prefix, token, ...invalidParts] = authHeader.split(' ');
+		if (!authHeader) {
+			throw new AppError('Invalid JWT token!', 401);
+		}
 
-	if (invalidParts.length > 0) {
-		throw new AppError('Invalid JWT token', 401);
-	}
+		const [prefix, token, ...invalidParts] = authHeader.split(' ');
 
-	if (prefix !== 'Bearer') {
-		throw new AppError('Invalid JWT token', 401);
-	}
+		if (invalidParts.length > 0) {
+			throw new AppError('Invalid JWT token', 401);
+		}
 
-	if (!token) {
-		throw new AppError('Invalid JWT token', 401);
-	}
+		if (prefix !== 'Bearer') {
+			throw new AppError('Invalid JWT token', 401);
+		}
 
-	if (!process.env.JWT_SECRET) {
-		throw new AppError('JWT secret not defined', 500);
-	}
+		if (!token) {
+			throw new AppError('Invalid JWT token', 401);
+		}
 
-	try {
-		const decoded = verify(token, process.env.JWT_SECRET);
-		const { id: authenticatedUserId } = decoded as { id: string };
+		if (!process.env.JWT_SECRET) {
+			throw new AppError('JWT secret not defined', 500);
+		}
 
-		request.userId = authenticatedUserId;
+		try {
+			const decoded = verify(token, process.env.JWT_SECRET);
+			const { id: authenticatedUserId } = decoded as { id: string };
 
-		next();
-		return;
-	} catch {
-		throw new AppError('Invalid JWT token', 401);
-	}
-}
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			//@ts-ignore
+			request.user = {
+				id: authenticatedUserId,
+			};
+
+			next();
+			return;
+		} catch {
+			throw new AppError('Invalid JWT token', 401);
+		}
+	};
+};
