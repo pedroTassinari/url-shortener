@@ -1,5 +1,4 @@
-import { hash } from 'bcrypt';
-import { v4 as uuid } from 'uuid';
+import { createId } from '@paralleldrive/cuid2';
 
 import { Tenant } from '../../entities/Tenant';
 import { ITenantRepository } from './repositories/tenant-repository';
@@ -12,10 +11,9 @@ export class CreateTenantUseCase {
 	}
 
 	async execute(name: string): Promise<Tenant> {
-		const apiKey = uuid();
+		const apiKey = createId();
 
-		const apyKeyHash = await hash(apiKey, 10);
-		const tenant = await this.tenantRepository.createTenant({ apiKey: apyKeyHash, name });
+		const tenant = await this.tenantRepository.createTenant({ apiKey, name });
 
 		tenant.apiKey = apiKey;
 
