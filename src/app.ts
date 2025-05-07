@@ -15,7 +15,8 @@ app.use(router);
 
 //eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, _request: Request, response: Response, next: NextFunction) => {
-	if (err instanceof AppError) {
+	const isNotInternalServerError = err instanceof AppError && err.statusCode !== 500;
+	if (err instanceof AppError && isNotInternalServerError) {
 		return void response.status(err.statusCode).json({
 			message: err.message,
 		});
