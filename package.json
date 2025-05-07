@@ -13,7 +13,7 @@
 		"leaks:protect:report": "gitleaks protect --staged -r $(pwd)/gitleaks-report.json || docker run --rm -v $(pwd):/repo zricethezav/gitleaks:latest protect --source='/repo' -v --staged -r='/repo/gitleaks-report.json'",
 		"test": "jest",
 		"start": "ts-node src/server.ts",
-		"typeorm": "typeorm-ts-node-commonjs"
+		"typeorm": "dotenv -- typeorm-ts-node-commonjs"
 	},
 	"repository": {
 		"type": "git",
