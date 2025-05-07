@@ -17,8 +17,15 @@ export class CreateUserController {
 
 		const user = await this.createUserUseCase.execute({ apiKey, email, name, password });
 
-		//FIXME: This is a temporary solution to avoid sending the password hash in the response
+		const { createdAt, email: userEmail, id, name: username } = user;
 
-		return void response.status(200).json(user);
+		const data = {
+			createdAt,
+			email: userEmail,
+			id,
+			name: username,
+		};
+
+		return void response.status(200).json(data);
 	}
 }
