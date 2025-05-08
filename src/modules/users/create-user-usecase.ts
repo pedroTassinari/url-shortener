@@ -30,7 +30,11 @@ export class CreateUserUseCase {
 			throw new AppError('Tenant not found', 404);
 		}
 
-		//FIXME: Check if the user already exists
+		const doesUserAlreadyExist = await this.userRepository.findByEmail(email);
+
+		if (doesUserAlreadyExist) {
+			throw new AppError('Invalid email', 400);
+		}
 
 		const passwordHash = await hash(password, 10);
 		const user = await this.userRepository.create({ email, name, password: passwordHash, tenantId: tenant.id });
