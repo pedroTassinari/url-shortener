@@ -5,9 +5,11 @@ import { Url } from '../../../entities/Url';
 
 export interface IUrlRepository {
 	create(tenant: Pick<Url, 'code' | 'originalUrl' | 'tenantId' | 'userId'>): Promise<Url>;
+	existsById(id: string): Promise<boolean>;
 	findByCode(code: string): Promise<null | Url>;
 	findByUser(userId: string): Promise<Url[]>;
 	incrementAccessCount(code: string): Promise<void>;
+	updateOriginalUrl(id: string, originalUrl: string): Promise<boolean>;
 }
 
 export class UrlRepository implements IUrlRepository {
@@ -25,6 +27,15 @@ export class UrlRepository implements IUrlRepository {
 		const createUrl = this.repository.create(url);
 
 		return await this.repository.save(createUrl);
+	}
+
+	async existsById(id: string): Promise<boolean> {
+		return await this.repository.exists({
+			where: {
+				deletedAt: IsNull(),
+				id,
+			},
+		});
 	}
 
 	/**
@@ -56,5 +67,19 @@ export class UrlRepository implements IUrlRepository {
 	 */
 	async incrementAccessCount(code: string): Promise<void> {
 		await this.repository.increment({ code }, 'clickCount', 1);
+	}
+
+	async updateOriginalUrl(id: string, originalUrl: string): Promise<boolean> {
+		const url = await this.repository.update(
+			{
+				id,
+			},
+			{
+				originalUrl,
+				updatedAt: new Date(),
+			}
+		);
+
+		return !!(url.affected && url.affected > 0);
 	}
 }

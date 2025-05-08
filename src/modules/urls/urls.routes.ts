@@ -1,17 +1,20 @@
 import 'reflect-metadata';
 import { Request, Response, Router } from 'express';
 
-import { validateRequestBody } from '../../middlewares';
+import { validateRequestBody, validateRequestParams } from '../../middlewares';
 import { ensureAuthenticated } from '../../middlewares/authentication-middleware';
 import { UserRepository } from '../users/repositories/user-repository';
 import { AccessShortUrlController } from './controllers/access-short-url-controller';
 import { ListShortenUrlsController } from './controllers/list-shorten-urls-controller';
 import { ShortenUrlController } from './controllers/shorten-url-controller';
+import { UpdateShortenUrlController } from './controllers/update-shorten-url-controller';
 import { UrlRepository } from './repositories/url-repository';
 import { shortenUrlSchema } from './schemas/shorten-url-schema';
+import { updateShortenUrlParamsSchema, updateShortenUrlSchema } from './schemas/update-shorten-url-schema';
 import { AccessShortUrlUseCase } from './usecases/access-short-url-use-case';
 import { ListShortenUrlsUseCase } from './usecases/list-shorten-urls-use-case';
 import { ShortenUrlUseCase } from './usecases/shorten-url-use-case';
+import { UpdateShortenUrlUseCase } from './usecases/update-shorten-url-use-case';
 
 const urlsRoutes = Router();
 
@@ -36,6 +39,17 @@ urlsRoutes.post(
 
 urlsRoutes.get('/', ensureAuthenticated(), (request: Request, response: Response) =>
 	listShortenUrlsController.handle(request, response)
+);
+
+const updateShortenUrlUseCase = new UpdateShortenUrlUseCase(urlRepository);
+const updateShortenUrlController = new UpdateShortenUrlController(updateShortenUrlUseCase);
+
+urlsRoutes.patch(
+	'/:id',
+	validateRequestParams(updateShortenUrlParamsSchema),
+	validateRequestBody(updateShortenUrlSchema),
+	ensureAuthenticated(),
+	(request: Request, response: Response) => updateShortenUrlController.handle(request, response)
 );
 
 export { accessShortUrlController, urlsRoutes };
