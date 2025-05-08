@@ -4,12 +4,12 @@ import { Request, Response, Router } from 'express';
 import { validateRequestBody } from '../../middlewares';
 import { ensureAuthenticated } from '../../middlewares/authentication-middleware';
 import { UserRepository } from '../users/repositories/user-repository';
-import { AccessShortUrlController } from './access-short-url-controller';
-import { AccessShortUrlUseCase } from './access-short-url-use-case';
+import { AccessShortUrlController } from './controllers/access-short-url-controller';
+import { ShortenUrlController } from './controllers/shorten-url-controller';
 import { UrlRepository } from './repositories/url-repository';
 import { shortenUrlSchema } from './schemas/shorten-url-schema';
-import { ShortenUrlController } from './shorten-url-controller';
-import { ShortenUrlUseCase } from './shorten-url-use-case';
+import { AccessShortUrlUseCase } from './usecases/access-short-url-use-case';
+import { ShortenUrlUseCase } from './usecases/shorten-url-use-case';
 
 const urlsRoutes = Router();
 

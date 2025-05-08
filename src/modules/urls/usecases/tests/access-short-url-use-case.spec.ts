@@ -1,8 +1,8 @@
 import { Url } from '@entities/Url';
 
-import { AppError } from '../../../AppError';
+import { AppError } from '../../../../AppError';
+import { IUrlRepository } from '../../repositories/url-repository';
 import { AccessShortUrlUseCase } from '../access-short-url-use-case';
-import { IUrlRepository } from '../repositories/url-repository';
 
 describe('AccessShortUrlUseCase', () => {
 	let accessShortUrlUseCase: AccessShortUrlUseCase;
