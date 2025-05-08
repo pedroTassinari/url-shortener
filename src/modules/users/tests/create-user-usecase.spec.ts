@@ -20,6 +20,7 @@ describe('CreateUserUseCase', () => {
 
 		userRepository = {
 			create: jest.fn(),
+			findByEmail: jest.fn(),
 		} as unknown as jest.Mocked<IUserRepository>;
 
 		createUserUseCase = new CreateUserUseCase(userRepository, tenantRepository);
