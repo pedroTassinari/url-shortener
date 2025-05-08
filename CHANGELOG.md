@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.2](https://github.com/pedroTassinari/url-shortener/compare/v1.4.1...v1.4.2) (2025-05-08)
+
+
+### Bug Fixes
+
+* avoid creating user with same email ([#18](https://github.com/pedroTassinari/url-shortener/issues/18)) ([e8c9177](https://github.com/pedroTassinari/url-shortener/commit/e8c9177a93a31d1c7ea94ff53f4b0bca79d2f11c))
+
 ## [1.4.1](https://github.com/pedroTassinari/url-shortener/compare/v1.4.0...v1.4.1) (2025-05-07)
 
 
