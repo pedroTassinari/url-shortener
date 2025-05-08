@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { Request } from 'types/express';
 
-import { AccessShortUrlUseCase } from './access-short-url-use-case';
+import { AccessShortUrlUseCase } from '../usecases/access-short-url-use-case';
 
 export class AccessShortUrlController {
 	private readonly accessShortUrlUseCase: AccessShortUrlUseCase;

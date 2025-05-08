@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { IsNull, Not, Repository } from 'typeorm';
 
 import { AppDataSource } from '../../../../data-source';
 import { Url } from '../../../entities/Url';
@@ -6,6 +6,7 @@ import { Url } from '../../../entities/Url';
 export interface IUrlRepository {
 	create(tenant: Pick<Url, 'code' | 'originalUrl' | 'tenantId' | 'userId'>): Promise<Url>;
 	findByCode(code: string): Promise<null | Url>;
+	findByUser(userId: string): Promise<Url[]>;
 	incrementAccessCount(code: string): Promise<void>;
 }
 
@@ -39,6 +40,14 @@ export class UrlRepository implements IUrlRepository {
 		});
 
 		return url;
+	}
+
+	async findByUser(userId: string): Promise<Url[]> {
+		const urls = await this.repository.find({
+			where: [{ userId: Not(IsNull()) }, { userId }],
+		});
+
+		return urls;
 	}
 
 	/**

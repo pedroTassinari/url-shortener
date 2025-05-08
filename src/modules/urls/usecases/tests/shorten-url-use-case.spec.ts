@@ -1,9 +1,9 @@
 import { User } from '@entities/User';
 import { validate as isUuidValid } from 'uuid';
 
-import { AppError } from '../../../AppError';
-import { IUserRepository } from '../../users/repositories/user-repository';
-import { IUrlRepository } from '../repositories/url-repository';
+import { AppError } from '../../../../AppError';
+import { IUserRepository } from '../../../users/repositories/user-repository';
+import { IUrlRepository } from '../../repositories/url-repository';
 import { ShortenUrlUseCase } from '../shorten-url-use-case';
 
 jest.mock('uuid', () => ({

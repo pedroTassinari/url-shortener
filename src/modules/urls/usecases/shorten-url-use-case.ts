@@ -1,9 +1,9 @@
 import { nanoid } from 'nanoid';
 import { validate as isUuidValid } from 'uuid';
 
-import { AppError } from '../../AppError';
-import { IUserRepository } from '../users/repositories/user-repository';
-import { IUrlRepository } from './repositories/url-repository';
+import { AppError } from '../../../AppError';
+import { IUserRepository } from '../../users/repositories/user-repository';
+import { IUrlRepository } from '../repositories/url-repository';
 
 interface ShortenUrlDTO {
 	originalUrl: string;

@@ -1,5 +1,5 @@
-import { AppError } from '../../AppError';
-import { IUrlRepository } from './repositories/url-repository';
+import { AppError } from '../../../AppError';
+import { IUrlRepository } from '../repositories/url-repository';
 
 export class AccessShortUrlUseCase {
 	private readonly urlRepository: IUrlRepository;

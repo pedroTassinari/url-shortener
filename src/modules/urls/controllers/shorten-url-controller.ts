@@ -1,8 +1,8 @@
 import { Response } from 'express';
 import { Request } from 'types/express';
 
-import { ShortenUrlSchema } from './schemas/shorten-url-schema';
-import { ShortenUrlUseCase } from './shorten-url-use-case';
+import { ShortenUrlSchema } from '../schemas/shorten-url-schema';
+import { ShortenUrlUseCase } from '../usecases/shorten-url-use-case';
 
 export class ShortenUrlController {
 	private readonly shortenUrlUseCase: ShortenUrlUseCase;
