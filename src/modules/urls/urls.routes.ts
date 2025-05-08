@@ -5,13 +5,16 @@ import { validateRequestBody, validateRequestParams } from '../../middlewares';
 import { ensureAuthenticated } from '../../middlewares/authentication-middleware';
 import { UserRepository } from '../users/repositories/user-repository';
 import { AccessShortUrlController } from './controllers/access-short-url-controller';
+import { DeleteShortenUrlController } from './controllers/delete-shorten-url-controller';
 import { ListShortenUrlsController } from './controllers/list-shorten-urls-controller';
 import { ShortenUrlController } from './controllers/shorten-url-controller';
 import { UpdateShortenUrlController } from './controllers/update-shorten-url-controller';
 import { UrlRepository } from './repositories/url-repository';
+import { deleteShortenUrlParamsSchema } from './schemas/delete-shorten-url-schema';
 import { shortenUrlSchema } from './schemas/shorten-url-schema';
 import { updateShortenUrlParamsSchema, updateShortenUrlSchema } from './schemas/update-shorten-url-schema';
 import { AccessShortUrlUseCase } from './usecases/access-short-url-use-case';
+import { DeleteShortenUrlUseCase } from './usecases/delete-shorten-url-use-case';
 import { ListShortenUrlsUseCase } from './usecases/list-shorten-urls-use-case';
 import { ShortenUrlUseCase } from './usecases/shorten-url-use-case';
 import { UpdateShortenUrlUseCase } from './usecases/update-shorten-url-use-case';
@@ -50,6 +53,16 @@ urlsRoutes.patch(
 	validateRequestBody(updateShortenUrlSchema),
 	ensureAuthenticated(),
 	(request: Request, response: Response) => updateShortenUrlController.handle(request, response)
+);
+
+const deleteShortenUrlUseCase = new DeleteShortenUrlUseCase(urlRepository);
+const deleteShortenUrlController = new DeleteShortenUrlController(deleteShortenUrlUseCase);
+
+urlsRoutes.delete(
+	'/:id',
+	validateRequestParams(deleteShortenUrlParamsSchema),
+	ensureAuthenticated(),
+	(request: Request, response: Response) => deleteShortenUrlController.handle(request, response)
 );
 
 export { accessShortUrlController, urlsRoutes };

@@ -5,6 +5,7 @@ import { Url } from '../../../entities/Url';
 
 export interface IUrlRepository {
 	create(tenant: Pick<Url, 'code' | 'originalUrl' | 'tenantId' | 'userId'>): Promise<Url>;
+	deleteById(id: string): Promise<void>;
 	existsById(id: string): Promise<boolean>;
 	findByCode(code: string): Promise<null | Url>;
 	findByUser(userId: string): Promise<Url[]>;
@@ -29,6 +30,17 @@ export class UrlRepository implements IUrlRepository {
 		return await this.repository.save(createUrl);
 	}
 
+	async deleteById(id: string): Promise<void> {
+		await this.repository.update(
+			{
+				id,
+			},
+			{
+				deletedAt: new Date(),
+			}
+		);
+	}
+
 	async existsById(id: string): Promise<boolean> {
 		return await this.repository.exists({
 			where: {
@@ -47,6 +59,7 @@ export class UrlRepository implements IUrlRepository {
 		const url = await this.repository.findOne({
 			where: {
 				code,
+				deletedAt: IsNull(),
 			},
 		});
 
@@ -55,7 +68,7 @@ export class UrlRepository implements IUrlRepository {
 
 	async findByUser(userId: string): Promise<Url[]> {
 		const urls = await this.repository.find({
-			where: [{ userId: Not(IsNull()) }, { userId }],
+			where: [{ userId: Not(IsNull()) }, { userId }, { deletedAt: IsNull() }],
 		});
 
 		return urls;
